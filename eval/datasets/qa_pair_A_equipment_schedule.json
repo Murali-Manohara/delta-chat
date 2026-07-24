@@ -1,0 +1,29 @@
+{
+  "pair_id": "pair_A_equipment_schedule",
+  "qa": [
+    {
+      "question": "What changed on 26-PIT-9062 between Rev A and Rev B?",
+      "expected_keywords": ["245", "250", "barg"]
+    },
+    {
+      "question": "Was any instrument removed in Rev B?",
+      "expected_keywords": ["26-TIT-9063"]
+    },
+    {
+      "question": "Was any instrument added in Rev B?",
+      "expected_keywords": ["26-PIT-9066"]
+    },
+    {
+      "question": "Did the design pressure downstream of the compressor change?",
+      "expected_keywords": ["257", "260"]
+    },
+    {
+      "question": "What is the suction strainer high alarm setpoint in Rev A?",
+      "expected_keywords": ["40%"]
+    },
+    {
+      "question": "Is there a note about hydrate mitigation heat tracing?",
+      "expected_keywords": ["hydrate", "25"]
+    }
+  ]
+}

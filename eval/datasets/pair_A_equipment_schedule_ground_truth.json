@@ -1,0 +1,55 @@
+{
+  "pair_id": "pair_A_equipment_schedule",
+  "pid_a": {
+    "pid": "26-KA-901-RevA",
+    "path": "data/samples/pair_A_equipment_schedule/26-KA-901_RevA.pdf"
+  },
+  "pid_b": {
+    "pid": "26-KA-901-RevB",
+    "path": "data/samples/pair_A_equipment_schedule/26-KA-901_RevB.pdf"
+  },
+  "expected_deltas": [
+    {
+      "kind": "removed",
+      "change_type": "table_cell",
+      "before": "26-TIT-9063 | Suction gas temperature | monitoring only | 160 C",
+      "after": null
+    },
+    {
+      "kind": "added",
+      "change_type": "table_cell",
+      "before": null,
+      "after": "26-PIT-9066 | Relief valve inlet pressure | monitoring only | 286 barg"
+    },
+    {
+      "kind": "modified",
+      "change_type": "table_cell",
+      "before": "26-PIT-9062 | Suction scrubber pressure | LL: 120 / HH: 245 barg | 286 barg",
+      "after": "26-PIT-9062 | Suction scrubber pressure | LL: 120 / HH: 250 barg | 286 barg"
+    },
+    {
+      "kind": "removed",
+      "change_type": "note",
+      "before": "5. Oil change by using temporary arrangement with hoses.",
+      "after": null
+    },
+    {
+      "kind": "added",
+      "change_type": "note",
+      "before": null,
+      "after": "36. Field instrument air filter-regulator added upstream of ESDV per site walkdown."
+    },
+    {
+      "kind": "modified",
+      "change_type": "note",
+      "before": "22. Design pressure in external system downstream compressor 257 barg.",
+      "after": "22. Design pressure in external system downstream compressor 260 barg."
+    },
+    {
+      "kind": "modified",
+      "change_type": "note",
+      "before": "19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at 50% of design DP recommended by compressor vendor.",
+      "after": "19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at 55% of design DP recommended by compressor vendor."
+    }
+  ]
+}

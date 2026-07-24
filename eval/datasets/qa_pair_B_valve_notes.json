@@ -1,0 +1,21 @@
+{
+  "pair_id": "pair_B_valve_notes",
+  "qa": [
+    {
+      "question": "What is the setpoint of PSV 26-PSV-9027A?",
+      "expected_keywords": ["225.4", "barg"]
+    },
+    {
+      "question": "What changed on 26-PIT-9023 between revisions?",
+      "expected_keywords": ["214", "220"]
+    },
+    {
+      "question": "Was any instrument removed between Rev A and Rev B?",
+      "expected_keywords": ["26-PIT-9019"]
+    },
+    {
+      "question": "What is 26-TIT-9024 and when was it added?",
+      "expected_keywords": ["discharge", "temperature", "added"]
+    }
+  ]
+}

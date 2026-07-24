@@ -1,0 +1,49 @@
+{
+  "pair_id": "pair_B_valve_notes",
+  "pid_a": {
+    "pid": "26-KA-902-RevA",
+    "path": "data/samples/pair_B_valve_notes/26-KA-902_RevA.pdf"
+  },
+  "pid_b": {
+    "pid": "26-KA-902-RevB",
+    "path": "data/samples/pair_B_valve_notes/26-KA-902_RevB.pdf"
+  },
+  "expected_deltas": [
+    {
+      "kind": "removed",
+      "change_type": "table_cell",
+      "before": "26-PIT-9019 | Discharge pressure | LL: 50 / HH: 135 barg | 286 barg",
+      "after": null
+    },
+    {
+      "kind": "added",
+      "change_type": "table_cell",
+      "before": null,
+      "after": "26-TIT-9024 | Discharge gas temperature | SD HH: 150 C | 160 C"
+    },
+    {
+      "kind": "modified",
+      "change_type": "table_cell",
+      "before": "26-PIT-9023 | Suction scrubber pressure | LL: 110 / HH: 214 barg | 286 barg",
+      "after": "26-PIT-9023 | Suction scrubber pressure | LL: 110 / HH: 220 barg | 286 barg"
+    },
+    {
+      "kind": "added",
+      "change_type": "note",
+      "before": null,
+      "after": "27. Vibration monitoring probes recalibrated per vendor bulletin VB-2026-014."
+    },
+    {
+      "kind": "modified",
+      "change_type": "note",
+      "before": "22. Design pressure / temperature in external system downstream compressor 225 barg / 150 C.",
+      "after": "22. Design pressure / temperature in external system downstream compressor 230 barg / 150 C."
+    },
+    {
+      "kind": "modified",
+      "change_type": "note",
+      "before": "13. Upstream straight pipe run min. 10xD, downstream min 5xD.",
+      "after": "13. Upstream straight pipe run min. 12xD, downstream min 6xD."
+    }
+  ]
+}
