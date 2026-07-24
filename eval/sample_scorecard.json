@@ -1,0 +1,508 @@
+{
+  "llm_model": "extractive-fallback",
+  "results": [
+    {
+      "pair_id": "pair_A_equipment_schedule",
+      "is_native": true,
+      "note": null,
+      "delta_score": {
+        "precision": 0.923,
+        "recall": 1.0,
+        "f1": 0.96,
+        "n_ground_truth": 7,
+        "n_predicted": 13,
+        "n_covered_gt": 7,
+        "n_correct_pred": 12,
+        "uncovered_gt": [],
+        "spurious_pred": [
+          {
+            "id": "mod_f5b31e20ef36_6bc029ac9a9e",
+            "kind": "modified",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (78.0,52.1)-(277.9,66.1)",
+            "before": "Lift Gas Compressor \u2014 Rev A",
+            "after": "Lift Gas Compressor \u2014 Rev B",
+            "confidence": 0.974,
+            "block_id_a": "f5b31e20ef36",
+            "block_id_b": "6bc029ac9a9e"
+          }
+        ]
+      },
+      "chat_scores": [
+        {
+          "question": "What changed on 26-PIT-9062 between Rev A and Rev B?",
+          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9062 between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:f5d3f693dac2): 26-PIT-9062\n- [2] PID B (PID B:page1:f5d3f693dac2): 26-PIT-9062\n- [3] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 0.0,
+          "correct": false,
+          "citations": [
+            "PID A:page1:f5d3f693dac2",
+            "PID B:page1:f5d3f693dac2",
+            "PID A:page1:f5b31e20ef36"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "Was any instrument removed in Rev B?",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed in Rev B?\":\n- [1] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n- [3] PID A (PID A:page1:a3867bfdce07): Instrument & Equipment Schedule\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 0.0,
+          "correct": false,
+          "citations": [
+            "PID A:page1:f5b31e20ef36",
+            "PID B:page1:6bc029ac9a9e",
+            "PID A:page1:a3867bfdce07"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "Was any instrument added in Rev B?",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument added in Rev B?\":\n- [1] Delta Report (delta:add_2eabf9adbd1c): [added/note] page 1, region (78.0,390.1)-(408.6,399.1). After: 36. Field instrument air filter-regulator added upstream of ESDV per site walkdown..\n- [2] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [3] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 0.0,
+          "correct": false,
+          "citations": [
+            "delta:add_2eabf9adbd1c",
+            "PID A:page1:f5b31e20ef36",
+            "PID B:page1:6bc029ac9a9e"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "Did the design pressure downstream of the compressor change?",
+          "answer": "Based on the retrieved sources, regarding \"Did the design pressure downstream of the compressor change?\":\n- [1] PID A (PID A:page1:2456adb30218): 22. Design pressure in external system downstream compressor 257 barg.\n- [2] PID B (PID B:page1:81ff9e0b8e7f): 22. Design pressure in external system downstream compressor 260 barg.\n- [3] Delta Report (delta:mod_2456adb30218_81ff9e0b8e7f): [modified/dimension] page 1, region (78.0,360.1)-(375.1,369.1). Before: 22. Design pressure in external system downstream compressor 257 barg.. After: 22. Design pressure in external system downstream compressor 260 barg..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 1.0,
+          "correct": true,
+          "citations": [
+            "PID A:page1:2456adb30218",
+            "PID B:page1:81ff9e0b8e7f",
+            "delta:mod_2456adb30218_81ff9e0b8e7f"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "What is the suction strainer high alarm setpoint in Rev A?",
+          "answer": "Based on the retrieved sources, regarding \"What is the suction strainer high alarm setpoint in Rev A?\":\n- [1] PID A (PID A:page1:1650f0977af6): 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at\n- [2] PID B (PID B:page1:622495a65d0c): 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at\n- [3] Delta Report (delta:mod_1650f0977af6_622495a65d0c): [modified/note] page 1, region (78.0,333.1)-(534.0,342.1). Before: 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at. After: 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 1.0,
+          "correct": true,
+          "citations": [
+            "PID A:page1:1650f0977af6",
+            "PID B:page1:622495a65d0c",
+            "delta:mod_1650f0977af6_622495a65d0c"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "Is there a note about hydrate mitigation heat tracing?",
+          "answer": "Based on the retrieved sources, regarding \"Is there a note about hydrate mitigation heat tracing?\":\n- [1] PID A (PID A:page1:9226848b5994): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [2] PID B (PID B:page1:b5e3b385d31c): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [3] Delta Report (delta:rm_ceb1b052734b): [removed/note] page 1, region (78.0,318.1)-(311.1,327.1). Before: 5. Oil change by using temporary arrangement with hoses..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 1.0,
+          "correct": true,
+          "citations": [
+            "PID A:page1:9226848b5994",
+            "PID B:page1:b5e3b385d31c",
+            "delta:rm_ceb1b052734b"
+          ],
+          "ungrounded_markers": []
+        }
+      ],
+      "elapsed_s": 0.16
+    },
+    {
+      "pair_id": "pair_B_valve_notes",
+      "is_native": true,
+      "note": null,
+      "delta_score": {
+        "precision": 0.818,
+        "recall": 0.833,
+        "f1": 0.826,
+        "n_ground_truth": 6,
+        "n_predicted": 11,
+        "n_covered_gt": 5,
+        "n_correct_pred": 9,
+        "uncovered_gt": [
+          {
+            "kind": "removed",
+            "change_type": "table_cell",
+            "before": "26-PIT-9019 | Discharge pressure | LL: 50 / HH: 135 barg | 286 barg",
+            "after": null
+          }
+        ],
+        "spurious_pred": [
+          {
+            "id": "mod_e284b45b47d0_ee17b075bf20",
+            "kind": "modified",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (78.0,52.1)-(300.5,66.1)",
+            "before": "Export Gas Compressor \u2014 Rev A",
+            "after": "Export Gas Compressor \u2014 Rev B",
+            "confidence": 0.976,
+            "block_id_a": "e284b45b47d0",
+            "block_id_b": "ee17b075bf20"
+          },
+          {
+            "id": "mod_a35706053e37_9d69716c64b8",
+            "kind": "modified",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,231.2)",
+            "before": "26-TIT-9024: Discharge pressure",
+            "after": "26-TIT-9024: Discharge gas temperature",
+            "confidence": 0.71,
+            "block_id_a": "a35706053e37",
+            "block_id_b": "9d69716c64b8"
+          }
+        ]
+      },
+      "chat_scores": [
+        {
+          "question": "What is the setpoint of PSV 26-PSV-9027A?",
+          "answer": "Based on the retrieved sources, regarding \"What is the setpoint of PSV 26-PSV-9027A?\":\n- [1] PID A (PID A:page1:ed6831250f89): 26-PSV-9027A\n- [2] PID B (PID B:page1:ed6831250f89): 26-PSV-9027A\n- [3] PID A (PID A:page1:fd0cb117e0a9): 26-PSV-9027B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 0.0,
+          "correct": false,
+          "citations": [
+            "PID A:page1:ed6831250f89",
+            "PID B:page1:ed6831250f89",
+            "PID A:page1:fd0cb117e0a9"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "What changed on 26-PIT-9023 between revisions?",
+          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9023 between revisions?\":\n- [1] PID A (PID A:page1:b869bb24cc0f): 26-PIT-9023\n- [2] PID B (PID B:page1:b869bb24cc0f): 26-PIT-9023\n- [3] Delta Report (delta:mod_7f8bb97c7444_b677dde20e0e): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-PIT-9023: LL: 110 / HH: 214 barg. After: 26-PIT-9023: LL: 110 / HH: 220 barg.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 1.0,
+          "correct": true,
+          "citations": [
+            "PID A:page1:b869bb24cc0f",
+            "PID B:page1:b869bb24cc0f",
+            "delta:mod_7f8bb97c7444_b677dde20e0e"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "Was any instrument removed between Rev A and Rev B?",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:e284b45b47d0): Export Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:ee17b075bf20): Export Gas Compressor \u2014 Rev B\n- [3] Delta Report (delta:mod_e284b45b47d0_ee17b075bf20): [modified/text] page 1, region (78.0,52.1)-(300.5,66.1). Before: Export Gas Compressor \u2014 Rev A. After: Export Gas Compressor \u2014 Rev B.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 0.0,
+          "correct": false,
+          "citations": [
+            "PID A:page1:e284b45b47d0",
+            "PID B:page1:ee17b075bf20",
+            "delta:mod_e284b45b47d0_ee17b075bf20"
+          ],
+          "ungrounded_markers": []
+        },
+        {
+          "question": "What is 26-TIT-9024 and when was it added?",
+          "answer": "Based on the retrieved sources, regarding \"What is 26-TIT-9024 and when was it added?\":\n- [1] PID B (PID B:page1:5476be2e613f): 26-TIT-9024\n- [2] Delta Report (delta:mod_ca4e19e21a34_5476be2e613f): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: 26-PIT-9019. After: 26-TIT-9024.\n- [3] Delta Report (delta:mod_a35706053e37_9d69716c64b8): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: Discharge pressure. After: 26-TIT-9024: Discharge gas temperature.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "groundedness": 1.0,
+          "keyword_recall": 1.0,
+          "correct": true,
+          "citations": [
+            "PID B:page1:5476be2e613f",
+            "delta:mod_ca4e19e21a34_5476be2e613f",
+            "delta:mod_a35706053e37_9d69716c64b8"
+          ],
+          "ungrounded_markers": []
+        }
+      ],
+      "elapsed_s": 0.18
+    },
+    {
+      "pair_id": "pair_C_cross_document",
+      "is_native": false,
+      "note": "Rev A is an image-only (scanned) PDF -- OCR introduces noise, so exact-match ground truth here is approximate; this pair is used to demonstrate the pdf_scanned adapter and is reported separately in eval, not averaged into the native-only P/R/F1 headline number.",
+      "delta_score": {
+        "precision": 0.463,
+        "recall": 0.857,
+        "f1": 0.602,
+        "n_ground_truth": 7,
+        "n_predicted": 41,
+        "n_covered_gt": 6,
+        "n_correct_pred": 19,
+        "uncovered_gt": [
+          {
+            "kind": "modified",
+            "change_type": "note",
+            "before": "22. Design pressure in external system downstream compressor 257 barg.",
+            "after": "22. Design pressure in external system downstream compressor 260 barg."
+          }
+        ],
+        "spurious_pred": [
+          {
+            "id": "add_bf4b35336f10",
+            "kind": "added",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (99.5,127.9)-(484.3,135.9)",
+            "before": null,
+            "after": "Tag Service Setpoints Design Press.",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "bf4b35336f10"
+          },
+          {
+            "id": "add_b541ff6fcf81",
+            "kind": "added",
+            "change_type": "tag",
+            "page": 1,
+            "location": "page 1, region (78.0,303.1)-(303.6,312.1)",
+            "before": null,
+            "after": "1. 26-PDI-9054 HH initiate pressurized compressor stop.",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "b541ff6fcf81"
+          },
+          {
+            "id": "add_343058a72b94",
+            "kind": "added",
+            "change_type": "note",
+            "page": 1,
+            "location": "page 1, region (78.0,318.1)-(432.7,327.1)",
+            "before": null,
+            "after": "9. Manual drain prior to each start-up. Push button with permissive for start-up sequence.",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "343058a72b94"
+          },
+          {
+            "id": "add_622495a65d0c",
+            "kind": "added",
+            "change_type": "note",
+            "page": 1,
+            "location": "page 1, region (78.0,333.1)-(534.0,342.1)",
+            "before": null,
+            "after": "19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "622495a65d0c"
+          },
+          {
+            "id": "add_81ff9e0b8e7f",
+            "kind": "added",
+            "change_type": "dimension",
+            "page": 1,
+            "location": "page 1, region (78.0,360.1)-(375.1,369.1)",
+            "before": null,
+            "after": "22. Design pressure in external system downstream compressor 260 barg.",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "81ff9e0b8e7f"
+          },
+          {
+            "id": "add_b5e3b385d31c",
+            "kind": "added",
+            "change_type": "note",
+            "page": 1,
+            "location": "page 1, region (78.0,375.1)-(305.1,384.1)",
+            "before": null,
+            "after": "30. Safety critical heat tracing - hydrate mitigation (25 C).",
+            "confidence": 1.0,
+            "block_id_a": null,
+            "block_id_b": "b5e3b385d31c"
+          },
+          {
+            "id": "add_6840d3843f41",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "Tag",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "6840d3843f41"
+          },
+          {
+            "id": "add_a60ede910104",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "Tag: Service",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "a60ede910104"
+          },
+          {
+            "id": "add_1160b966942a",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "Tag: Setpoints",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "1160b966942a"
+          },
+          {
+            "id": "add_3a777c54a8e7",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "Tag: Design Press.",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "3a777c54a8e7"
+          },
+          {
+            "id": "add_7b975360f9bf",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9054",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "7b975360f9bf"
+          },
+          {
+            "id": "add_0db5b228bca0",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9054: Compressor pressurized stop DP",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "0db5b228bca0"
+          },
+          {
+            "id": "add_e1554178c135",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9054: H: 0.3 / HH: 0.6 barg",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "e1554178c135"
+          },
+          {
+            "id": "add_f52df6b09f62",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9757",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "f52df6b09f62"
+          },
+          {
+            "id": "add_a177fb867b12",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9757: Balance line cooler DP",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "a177fb867b12"
+          },
+          {
+            "id": "add_bdbe967dbb9f",
+            "kind": "added",
+            "change_type": "table_cell",
+            "page": 1,
+            "location": "page 1, region (93.5,123.2)-(518.5,249.2)",
+            "before": null,
+            "after": "26-PDIT-9757: 10 barg (tube rupture)",
+            "confidence": 0.9,
+            "block_id_a": null,
+            "block_id_b": "bdbe967dbb9f"
+          },
+          {
+            "id": "mod_d0bad270cc28_6bc029ac9a9e",
+            "kind": "modified",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (78.0,52.1)-(277.9,66.1)",
+            "before": "Lift Gas Compressor \u2014 Rev A",
+            "after": "Lift Gas Compressor \u2014 Rev B",
+            "confidence": 0.794,
+            "block_id_a": "d0bad270cc28",
+            "block_id_b": "6bc029ac9a9e"
+          },
+          {
+            "id": "rm_99065a397fcf",
+            "kind": "removed",
+            "change_type": "tag",
+            "page": 1,
+            "location": "page 1, region (218.9,842.9)-(841.0,866.9)",
+            "before": "1. 26-PDI-9054 HH initiate pressurized compressor stop.",
+            "after": null,
+            "confidence": 0.943,
+            "block_id_a": "99065a397fcf",
+            "block_id_b": null
+          },
+          {
+            "id": "rm_03bcce31d233",
+            "kind": "removed",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (217.0,925.9)-(1200.0,949.9)",
+            "before": "9. Manual drain prior to each start-up. Push button with permissive for start-up sequence.",
+            "after": null,
+            "confidence": 0.958,
+            "block_id_a": "03bcce31d233",
+            "block_id_b": null
+          },
+          {
+            "id": "rm_a1433eefc9c9",
+            "kind": "removed",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (218.9,967.0)-(1483.0,991.9)",
+            "before": "19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at",
+            "after": null,
+            "confidence": 0.949,
+            "block_id_a": "a1433eefc9c9",
+            "block_id_b": null
+          },
+          {
+            "id": "rm_29a24b57d1b0",
+            "kind": "removed",
+            "change_type": "dimension",
+            "page": 1,
+            "location": "page 1, region (217.0,1042.8)-(1039.9,1066.8)",
+            "before": "22. Design pressure in external system downstream compressor 257 barg.",
+            "after": null,
+            "confidence": 0.949,
+            "block_id_a": "29a24b57d1b0",
+            "block_id_b": null
+          },
+          {
+            "id": "rm_727060cdd721",
+            "kind": "removed",
+            "change_type": "text",
+            "page": 1,
+            "location": "page 1, region (217.0,1083.8)-(845.0,1109.0)",
+            "before": "30. Safety critical heat tracing - hydrate mitigation (25 C).",
+            "after": null,
+            "confidence": 0.942,
+            "block_id_a": "727060cdd721",
+            "block_id_b": null
+          }
+        ]
+      },
+      "chat_scores": [],
+      "elapsed_s": 20.23
+    }
+  ]
+}
