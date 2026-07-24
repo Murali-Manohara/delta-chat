@@ -68,10 +68,12 @@ class LLMCall:
 
 
 # Rough, documented per-1K-token prices used ONLY for cost estimation in
-# telemetry -- not billing. Update via PRICE_TABLE env var override if
-# needed. Values are illustrative; see README "Observability" section.
+# telemetry -- not billing. Update via PRICE_TABLE override if needed.
+# Values are illustrative (approximate public list prices at time of
+# writing); see README "Observability" section.
 PRICE_TABLE = {
     "claude-sonnet-4-6": {"in": 0.003, "out": 0.015},
+    "llama-3.3-70b-versatile": {"in": 0.00059, "out": 0.00079},  # Groq
     "extractive-fallback": {"in": 0.0, "out": 0.0},
 }
 

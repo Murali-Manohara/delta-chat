@@ -8,4 +8,5 @@ rapidfuzz==3.14.5
 scikit-learn==1.8.0
 numpy==2.4.4
 anthropic==0.120.0
+groq==1.6.0
 pytest==8.3.4

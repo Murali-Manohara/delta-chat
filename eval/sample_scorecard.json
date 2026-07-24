@@ -32,7 +32,7 @@
       "chat_scores": [
         {
           "question": "What changed on 26-PIT-9062 between Rev A and Rev B?",
-          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9062 between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:f5d3f693dac2): 26-PIT-9062\n- [2] PID B (PID B:page1:f5d3f693dac2): 26-PIT-9062\n- [3] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9062 between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:f5d3f693dac2): 26-PIT-9062\n- [2] PID B (PID B:page1:f5d3f693dac2): 26-PIT-9062\n- [3] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 0.0,
           "correct": false,
@@ -45,7 +45,7 @@
         },
         {
           "question": "Was any instrument removed in Rev B?",
-          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed in Rev B?\":\n- [1] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n- [3] PID A (PID A:page1:a3867bfdce07): Instrument & Equipment Schedule\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed in Rev B?\":\n- [1] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n- [3] PID A (PID A:page1:a3867bfdce07): Instrument & Equipment Schedule\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 0.0,
           "correct": false,
@@ -58,7 +58,7 @@
         },
         {
           "question": "Was any instrument added in Rev B?",
-          "answer": "Based on the retrieved sources, regarding \"Was any instrument added in Rev B?\":\n- [1] Delta Report (delta:add_2eabf9adbd1c): [added/note] page 1, region (78.0,390.1)-(408.6,399.1). After: 36. Field instrument air filter-regulator added upstream of ESDV per site walkdown..\n- [2] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [3] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument added in Rev B?\":\n- [1] Delta Report (delta:add_2eabf9adbd1c): [added/note] page 1, region (78.0,390.1)-(408.6,399.1). After: 36. Field instrument air filter-regulator added upstream of ESDV per site walkdown..\n- [2] PID A (PID A:page1:f5b31e20ef36): Lift Gas Compressor \u2014 Rev A\n- [3] PID B (PID B:page1:6bc029ac9a9e): Lift Gas Compressor \u2014 Rev B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 0.0,
           "correct": false,
@@ -71,7 +71,7 @@
         },
         {
           "question": "Did the design pressure downstream of the compressor change?",
-          "answer": "Based on the retrieved sources, regarding \"Did the design pressure downstream of the compressor change?\":\n- [1] PID A (PID A:page1:2456adb30218): 22. Design pressure in external system downstream compressor 257 barg.\n- [2] PID B (PID B:page1:81ff9e0b8e7f): 22. Design pressure in external system downstream compressor 260 barg.\n- [3] Delta Report (delta:mod_2456adb30218_81ff9e0b8e7f): [modified/dimension] page 1, region (78.0,360.1)-(375.1,369.1). Before: 22. Design pressure in external system downstream compressor 257 barg.. After: 22. Design pressure in external system downstream compressor 260 barg..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"Did the design pressure downstream of the compressor change?\":\n- [1] PID A (PID A:page1:2456adb30218): 22. Design pressure in external system downstream compressor 257 barg.\n- [2] PID B (PID B:page1:81ff9e0b8e7f): 22. Design pressure in external system downstream compressor 260 barg.\n- [3] Delta Report (delta:mod_2456adb30218_81ff9e0b8e7f): [modified/dimension] page 1, region (78.0,360.1)-(375.1,369.1). Before: 22. Design pressure in external system downstream compressor 257 barg.. After: 22. Design pressure in external system downstream compressor 260 barg..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 1.0,
           "correct": true,
@@ -84,7 +84,7 @@
         },
         {
           "question": "What is the suction strainer high alarm setpoint in Rev A?",
-          "answer": "Based on the retrieved sources, regarding \"What is the suction strainer high alarm setpoint in Rev A?\":\n- [1] PID A (PID A:page1:1650f0977af6): 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at\n- [2] PID B (PID B:page1:622495a65d0c): 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at\n- [3] Delta Report (delta:mod_1650f0977af6_622495a65d0c): [modified/note] page 1, region (78.0,333.1)-(534.0,342.1). Before: 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at. After: 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"What is the suction strainer high alarm setpoint in Rev A?\":\n- [1] PID A (PID A:page1:1650f0977af6): 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at\n- [2] PID B (PID B:page1:622495a65d0c): 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at\n- [3] Delta Report (delta:mod_1650f0977af6_622495a65d0c): [modified/note] page 1, region (78.0,333.1)-(534.0,342.1). Before: 19. Suction strainer (commissioning phase only). High alarm at 40% of design DP and compressor high-high trip at. After: 19. Suction strainer (commissioning phase only). High alarm at 45% of design DP and compressor high-high trip at.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 1.0,
           "correct": true,
@@ -97,7 +97,7 @@
         },
         {
           "question": "Is there a note about hydrate mitigation heat tracing?",
-          "answer": "Based on the retrieved sources, regarding \"Is there a note about hydrate mitigation heat tracing?\":\n- [1] PID A (PID A:page1:9226848b5994): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [2] PID B (PID B:page1:b5e3b385d31c): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [3] Delta Report (delta:rm_ceb1b052734b): [removed/note] page 1, region (78.0,318.1)-(311.1,327.1). Before: 5. Oil change by using temporary arrangement with hoses..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"Is there a note about hydrate mitigation heat tracing?\":\n- [1] PID A (PID A:page1:9226848b5994): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [2] PID B (PID B:page1:b5e3b385d31c): 30. Safety critical heat tracing - hydrate mitigation (25 C).\n- [3] Delta Report (delta:rm_ceb1b052734b): [removed/note] page 1, region (78.0,318.1)-(311.1,327.1). Before: 5. Oil change by using temporary arrangement with hoses..\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 1.0,
           "correct": true,
@@ -109,7 +109,7 @@
           "ungrounded_markers": []
         }
       ],
-      "elapsed_s": 0.16
+      "elapsed_s": 0.25
     },
     {
       "pair_id": "pair_B_valve_notes",
@@ -161,7 +161,7 @@
       "chat_scores": [
         {
           "question": "What is the setpoint of PSV 26-PSV-9027A?",
-          "answer": "Based on the retrieved sources, regarding \"What is the setpoint of PSV 26-PSV-9027A?\":\n- [1] PID A (PID A:page1:ed6831250f89): 26-PSV-9027A\n- [2] PID B (PID B:page1:ed6831250f89): 26-PSV-9027A\n- [3] PID A (PID A:page1:fd0cb117e0a9): 26-PSV-9027B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"What is the setpoint of PSV 26-PSV-9027A?\":\n- [1] PID A (PID A:page1:ed6831250f89): 26-PSV-9027A\n- [2] PID B (PID B:page1:ed6831250f89): 26-PSV-9027A\n- [3] PID A (PID A:page1:fd0cb117e0a9): 26-PSV-9027B\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 0.0,
           "correct": false,
@@ -174,7 +174,7 @@
         },
         {
           "question": "What changed on 26-PIT-9023 between revisions?",
-          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9023 between revisions?\":\n- [1] PID A (PID A:page1:b869bb24cc0f): 26-PIT-9023\n- [2] PID B (PID B:page1:b869bb24cc0f): 26-PIT-9023\n- [3] Delta Report (delta:mod_7f8bb97c7444_b677dde20e0e): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-PIT-9023: LL: 110 / HH: 214 barg. After: 26-PIT-9023: LL: 110 / HH: 220 barg.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"What changed on 26-PIT-9023 between revisions?\":\n- [1] PID A (PID A:page1:b869bb24cc0f): 26-PIT-9023\n- [2] PID B (PID B:page1:b869bb24cc0f): 26-PIT-9023\n- [3] Delta Report (delta:mod_7f8bb97c7444_b677dde20e0e): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-PIT-9023: LL: 110 / HH: 214 barg. After: 26-PIT-9023: LL: 110 / HH: 220 barg.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 1.0,
           "correct": true,
@@ -187,7 +187,7 @@
         },
         {
           "question": "Was any instrument removed between Rev A and Rev B?",
-          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:e284b45b47d0): Export Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:ee17b075bf20): Export Gas Compressor \u2014 Rev B\n- [3] Delta Report (delta:mod_e284b45b47d0_ee17b075bf20): [modified/text] page 1, region (78.0,52.1)-(300.5,66.1). Before: Export Gas Compressor \u2014 Rev A. After: Export Gas Compressor \u2014 Rev B.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"Was any instrument removed between Rev A and Rev B?\":\n- [1] PID A (PID A:page1:e284b45b47d0): Export Gas Compressor \u2014 Rev A\n- [2] PID B (PID B:page1:ee17b075bf20): Export Gas Compressor \u2014 Rev B\n- [3] Delta Report (delta:mod_e284b45b47d0_ee17b075bf20): [modified/text] page 1, region (78.0,52.1)-(300.5,66.1). Before: Export Gas Compressor \u2014 Rev A. After: Export Gas Compressor \u2014 Rev B.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 0.0,
           "correct": false,
@@ -200,7 +200,7 @@
         },
         {
           "question": "What is 26-TIT-9024 and when was it added?",
-          "answer": "Based on the retrieved sources, regarding \"What is 26-TIT-9024 and when was it added?\":\n- [1] PID B (PID B:page1:5476be2e613f): 26-TIT-9024\n- [2] Delta Report (delta:mod_ca4e19e21a34_5476be2e613f): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: 26-PIT-9019. After: 26-TIT-9024.\n- [3] Delta Report (delta:mod_a35706053e37_9d69716c64b8): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: Discharge pressure. After: 26-TIT-9024: Discharge gas temperature.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)",
+          "answer": "Based on the retrieved sources, regarding \"What is 26-TIT-9024 and when was it added?\":\n- [1] PID B (PID B:page1:5476be2e613f): 26-TIT-9024\n- [2] Delta Report (delta:mod_ca4e19e21a34_5476be2e613f): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: 26-PIT-9019. After: 26-TIT-9024.\n- [3] Delta Report (delta:mod_a35706053e37_9d69716c64b8): [modified/table_cell] page 1, region (93.5,123.2)-(518.5,231.2). Before: 26-TIT-9024: Discharge pressure. After: 26-TIT-9024: Discharge gas temperature.\n\n(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)",
           "groundedness": 1.0,
           "keyword_recall": 1.0,
           "correct": true,
@@ -212,7 +212,7 @@
           "ungrounded_markers": []
         }
       ],
-      "elapsed_s": 0.18
+      "elapsed_s": 0.3
     },
     {
       "pair_id": "pair_C_cross_document",
@@ -502,7 +502,7 @@
         ]
       },
       "chat_scores": [],
-      "elapsed_s": 20.23
+      "elapsed_s": 16.95
     }
   ]
 }

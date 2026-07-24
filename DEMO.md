@@ -3,6 +3,10 @@
 Real captured output from this repo, `make run` / `make chat` / `make eval`,
 run with **no API key set** (extractive-fallback chat backend — see README
 "Where is the LLM"). Regenerate any of it yourself with the commands shown.
+The configured LLM provider for this submission is **Groq (Llama 3.3 70B)**
+— set `GROQ_API_KEY` in `.env` to see real LLM-generated answers instead of
+the fallback text below; `ANTHROPIC_API_KEY` also works as a second
+reference provider (see README "Where is the LLM").
 
 ## 1. Delta run
 
@@ -68,14 +72,14 @@ Based on the retrieved sources, regarding "Was any instrument removed, and what 
 - [2] PID B (PID B:page1:81ff9e0b8e7f): 22. Design pressure in external system downstream compressor 260 barg.
 - [3] Delta Report (delta:mod_2456adb30218_81ff9e0b8e7f): [modified/dimension] page 1, region (78.0,360.1)-(375.1,369.1). Before: 22. Design pressure in external system downstream compressor 257 barg.. After: 22. Design pressure in external system downstream compressor 260 barg..
 
-(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set ANTHROPIC_API_KEY for a fluent, synthesized answer.)
+(extractive-fallback mode: no LLM configured, so this answer is assembled directly from the highest-ranked retrieved chunks above rather than generated prose. Set GROQ_API_KEY (or ANTHROPIC_API_KEY) for a fluent, synthesized answer.)
 
 Citations:
   [1] -> PID A:page1:2456adb30218 (PID A)
   [2] -> PID B:page1:81ff9e0b8e7f (PID B)
   [3] -> delta:mod_2456adb30218_81ff9e0b8e7f (Delta Report)
 
-[extractive-fallback | 220in/206out tok | $0.0 | 1.52ms]
+[extractive-fallback | 220in/211out tok | $0.0 | 1.81ms]
 ```
 
 Every citation resolves to a real chunk (`ungrounded_markers` is empty —

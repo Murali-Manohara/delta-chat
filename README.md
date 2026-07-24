@@ -19,8 +19,10 @@ make test         # unit tests (22 tests, no external deps)
 ```
 
 No API key is required for any of the above — see "Where is the LLM"
-below. Set `ANTHROPIC_API_KEY` (copy `.env.example` → `.env`) for fluent,
-LLM-generated chat answers instead of the extractive fallback.
+below. Set `GROQ_API_KEY` (copy `.env.example` → `.env`) for fluent,
+LLM-generated chat answers (Llama 3.3 70B via Groq) instead of the
+extractive fallback. `ANTHROPIC_API_KEY` also works as a second reference
+provider — see "Where is the LLM" for how provider selection works.
 
 ## Sample data — read this first
 
@@ -108,10 +110,16 @@ pipeline with real non-determinism, and it's isolated there by design —
 ingestion and delta re-runs are byte-for-byte reproducible
 (`tests/test_engine.py::test_delta_is_reproducible_across_runs`).
 
-Chat has two swappable backends behind one `LLMClient` interface
+Chat has three swappable backends behind one `LLMClient` interface
 (`src/chat/llm.py`):
-- `AnthropicClient` — real API call, used automatically if
-  `ANTHROPIC_API_KEY` is set.
+- `GroqClient` — real API call to Groq's OpenAI-compatible endpoint,
+  defaulting to Llama 3.3 70B (`llama-3.3-70b-versatile`). This is the
+  provider configured for this submission; used automatically if
+  `GROQ_API_KEY` is set (or force it with `LLM_PROVIDER=groq`).
+- `AnthropicClient` — real API call to Claude, used if `ANTHROPIC_API_KEY`
+  is set instead. Kept as a second working implementation specifically
+  to demonstrate the `LLMClient` interface is genuinely provider-agnostic
+  rather than shaped around Groq's or Anthropic's SDK.
 - `ExtractiveFallbackClient` — zero-network, zero-cost, stitches the
   top retrieved chunks into an answer. This is **not** a mocked/fake
   mode for demo purposes — it's what actually runs in `make eval` and
@@ -119,6 +127,13 @@ Chat has two swappable backends behind one `LLMClient` interface
   *everything* in this repo, including the eval harness, and see real
   (if less fluent) grounded answers with real citations. The scorecard
   and every trace file record which mode produced a given answer.
+
+Provider selection (`get_default_client()` in `src/chat/llm.py`): explicit
+`LLM_PROVIDER=groq|anthropic` wins if set; otherwise whichever `*_API_KEY`
+is present is used (Groq checked first); otherwise the extractive
+fallback. Any failure constructing a real client (bad key, unreachable
+network) falls through to the extractive client rather than crashing the
+pipeline.
 
 ## Reference architecture
 
@@ -215,11 +230,15 @@ Run `make eval` for a live scorecard; a snapshot is committed at
   keyword check looks for. Groundedness (are the citations real) stays
   perfect either way; fluency/completeness is the known gap of running
   without an LLM key, exactly as documented in `src/chat/llm.py`. With
-  `ANTHROPIC_API_KEY` set, the same retrieved context goes through a
-  real model and keyword-recall should track answer quality more
-  directly — I did not have a key configured in the environment I built
-  this in, so I'm reporting the fallback numbers rather than an
-  unverified claim about the LLM path.
+  `GROQ_API_KEY` set, the same retrieved context goes through Llama 3.3
+  70B and keyword-recall should track answer quality more directly — I
+  did not have a live key in the sandbox I built this in (Groq's API
+  endpoint isn't reachable from that environment's network egress
+  allowlist), so I'm reporting the fallback numbers rather than an
+  unverified claim about the LLM path. `GroqClient` is unit-tested for
+  correct wiring (`tests/test_llm_provider.py`) but not for a live
+  response — worth a real smoke test (`make chat Q="..."` with your key
+  set) before relying on the LLM-mode numbers.
 
 Candid failure examples (also printed by `make eval`):
 - A `pair_B` removed instrument (`26-PIT-9019`) is missed by the delta
@@ -269,6 +288,6 @@ localized change, not a rewrite.
 
 ## No secrets
 
-`.env.example` has no real values. `ANTHROPIC_API_KEY` is read from the
-environment only (`src/chat/llm.py`); nothing is hardcoded or logged.
-`git log` has no credential-bearing commits.
+`.env.example` has no real values. `GROQ_API_KEY` / `ANTHROPIC_API_KEY`
+are read from the environment only (`src/chat/llm.py`); nothing is
+hardcoded or logged. `git log` has no credential-bearing commits.
