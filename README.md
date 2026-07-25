@@ -1,5 +1,258 @@
 # delta-chat
 
+**Document Delta & Grounded Chat** — a system for comparing two revisions of an
+engineering document (any format: native PDF, scanned PDF, or DWG), producing
+a structured change report, and answering natural-language questions about
+both revisions with cited, verifiable sources.
+
+Given two document revisions (PID A and PID B), the system:
+1. Ingests both, regardless of source format, into one common representation.
+2. Computes a structured delta — every addition, removal, and modification,
+   located and confidence-scored.
+3. Renders a human-readable and machine-readable delta report.
+4. Answers free-text questions grounded in both revisions and the delta
+   report, with every claim traceable back to its source.
+
+## Quick start
+
+```bash
+pip install -r requirements.txt
+make run          # ingest a sample pair, produce a delta report -> out/pair_A/
+make chat         # interactive grounded chat over that pair
+make chat Q="What changed on 26-PIT-9062?"   # single-shot question
+make eval         # full evaluation harness -> scorecard printed + eval/results/scorecard.json
+make test         # unit test suite
+```
+
+No API key is required for any of the above — see "Chat backends" below.
+To enable LLM-generated (rather than extractive) chat answers, copy
+`.env.example` to `.env` and add a Groq API key.
+
+## Sample data
+
+Two real compressor P&IDs (piping & instrumentation diagrams) provided the
+tag numbers, setpoints, and note text used to build the sample data. Since
+evaluating a delta engine meaningfully requires genuine **revision pairs**
+(the same document, before and after an edit), three such pairs were
+generated from that real content, with every intentional change documented
+alongside its ground truth:
+
+| Pair | Formats | Purpose |
+|---|---|---|
+| `pair_A_equipment_schedule` | native PDF <-> native PDF | primary evaluation pair |
+| `pair_B_valve_notes` | native PDF <-> native PDF | second, independent evaluation pair |
+| `pair_C_cross_document` | scanned PDF <-> native PDF | demonstrates OCR-based ingestion, and the real-world case of a scanned as-built superseding a clean drawing |
+
+Full provenance and the exact list of authored changes for each pair are in
+`data/samples/PROVENANCE.md` and each pair's own `README.md`.
+
+## Architecture
+
+```
+ PID A, PID B
+     |
+     v
+ FormatAdapter (pdf_native | pdf_scanned | dwg)   -- one interface, N formats --
+     |
+     v
+ CanonicalDocument (Block: page, bbox, type, text, extraction_confidence)
+     |
+     +---------------------------+
+     v                           v
+ Delta engine                Retrieval index (TF-IDF)
+ align -> classify -> DeltaResult   PID A + PID B + Delta report chunks
+     |                           |
+     v                           v
+ Delta report (MD + JSON) --->  Grounded chat (swappable LLM client)
+                                  |
+                                  v
+                          Answer + citations (verified against retrieved set)
+
+ Observability (structured traces + logs) wraps every stage above.
+ Evaluation harness drives the same pipeline against labeled pairs and
+ scores delta precision/recall/F1 plus chat groundedness/correctness.
+```
+
+## What's implemented
+
+**Ingestion** — one `FormatAdapter` interface with three implementations:
+- `pdf_native`: born-digital PDFs with a real text layer, extracted via
+  `pdfplumber` (line text + table cells, each with a bounding box).
+- `pdf_scanned`: image-only / scanned PDFs, rasterized and run through
+  Tesseract OCR, carrying per-word confidence into the canonical model.
+- `dwg`: a documented interface stub for CAD drawings. It correctly
+  dispatches `.dwg` files through the same registry as the working
+  adapters and raises a structured error describing exactly how a full
+  implementation would work (DWG -> DXF conversion, then an `ezdxf` entity
+  walk) — see `src/ingest/dwg.py`.
+
+**Canonical representation** — every ingested document becomes a flat list
+of `Block`s (page, bounding box, type, text, extraction confidence, a
+deterministic id). Nothing downstream needs to know which format a block
+came from.
+
+**Delta engine** — fully deterministic, no LLM involved:
+- Two-pass alignment: exact-text matching first, then fuzzy text +
+  position matching for the remainder (`src/delta/align.py`).
+- Classification into added / removed / modified, with a change-type tag
+  (note, dimension, tag, table cell) and a confidence score computed from
+  alignment quality and OCR extraction confidence.
+- A Markdown + JSON delta report, which also becomes a retrievable source
+  for chat.
+
+**Grounded chat**:
+- TF-IDF retrieval over PID A, PID B, and the delta report
+  (`src/chat/index.py`).
+- A provider-agnostic `LLMClient` interface (`src/chat/llm.py`) with three
+  interchangeable implementations: `GroqClient` (Llama 3.3 70B, the
+  default provider), and `ExtractiveFallbackClient` (assembles an answer
+  directly from retrieved chunks with zero network calls — the system's
+  default when no API key is configured).
+- Every citation in an answer is regex-extracted and checked against the
+  chunks that were actually retrieved, so a hallucinated citation is
+  detected rather than silently accepted.
+
+**Observability**:
+- Structured JSON logs with a correlation id (`src/observability/logging.py`).
+- A `Trace`/`Span` object capturing per-stage timing and LLM
+  prompt/response/token/cost for every request, written to `runs/*.json`
+  (`src/observability/tracing.py`).
+
+**Evaluation harness** (`eval/run_eval.py`, `eval/metrics.py`):
+- Runs the real pipeline against labeled sample pairs and scores delta
+  precision/recall/F1 (coverage-based matching against hand-authored
+  ground truth — see `eval/metrics.py` for the exact method).
+- Scores chat answers on groundedness (are all citations real) and
+  keyword recall against expected answer content.
+- Prints a scorecard and writes a machine-readable
+  `eval/results/scorecard.json` for run-to-run comparison.
+
+**Tests** — 27 unit tests covering alignment, delta classification, report
+rendering, evaluation metrics, and LLM provider selection (`make test`).
+
+## Design decisions
+
+**Canonical `Block` is a flat list, not a tree.** A page's content is a
+list of independently diffable, independently citable blocks. This makes
+alignment a list-matching problem rather than tree-edit-distance, and keeps
+the delta engine and chat retrieval agnostic to source format — a DWG
+entity walk would produce the exact same flat shape.
+
+**The delta engine has no LLM in it.** Alignment is deterministic
+text-similarity + position matching; classification is rule-based. An LLM
+asked "did anything change between these two blocks" would be
+non-deterministic run to run and worse at exhaustively comparing every
+block than a matching algorithm is. The LLM is used exactly where judgment
+over retrieved evidence is the actual task: answering a natural-language
+question. That isolation is also what makes delta output byte-for-byte
+reproducible across runs (see `tests/test_engine.py`).
+
+**Confidence is compositional.** A modified-entry's confidence is
+`alignment_score x min(extraction_confidence of both sides)` — a
+low-confidence OCR match pulls the entry's confidence down even if the
+text similarity looks high. This is why OCR-derived changes in
+`pair_C_cross_document` honestly show lower confidence than the clean
+native-PDF changes in the same report.
+
+**Retrieval is TF-IDF, not embeddings.** At this corpus size, sparse
+lexical matching is actually a better fit than dense embeddings for
+content like instrument tags ("26-PIT-9055") and exact dimensions
+("50 barg"), which embeddings tend to blur together. It also means chat
+works with zero network dependency for retrieval, decoupling retrieval
+quality from LLM availability. A hybrid approach (TF-IDF plus embeddings
+for paraphrase-style queries) is a natural extension — see "What's next."
+
+**Chat backends are provider-agnostic by construction, not by claim.**
+`GroqClient`implement the same `LLMClient`
+interface; `get_default_client()` auto-selects based on which API key is
+present (or an explicit `LLM_PROVIDER` override), and any failure to
+construct a real client falls through to the extractive fallback rather
+than crashing the pipeline.
+
+## Chat backends
+
+Three interchangeable backends behind one interface:
+
+- **Groq (`GroqClient`)** — the default provider. Uses Llama 3.3 70B
+  (`llama-3.3-70b-versatile`) via Groq's chat completions API. Enabled
+  automatically when `GROQ_API_KEY` is set.
+- **Extractive fallback (`ExtractiveFallbackClient`)** — zero-network,
+  zero-cost. Assembles an answer directly from the top retrieved chunks
+  rather than generating prose. This is the default when no API key is
+  configured, so the full system — including the evaluation harness — is
+  runnable without any credentials. Every trace file and the scorecard
+  record which backend produced a given answer.
+
+## Evaluation results
+
+Run `make eval` for a live scorecard; a snapshot is committed at
+`eval/sample_scorecard.json`. Current results (Groq / Llama 3.3 70B chat
+backend):
+
+- **Delta, native-format pairs:** precision ~0.87, recall ~0.92,
+  F1 ~0.89 average across `pair_A` and `pair_B` (coverage-based matching
+  against row/note-granularity ground truth — see `eval/metrics.py` for
+  why this metric fits the block/row granularity mismatch better than
+  exact string matching would).
+- **Delta, scanned<->native pair:** F1 ~0.60, reported separately rather
+  than averaged into the headline number, since OCR noise on the scanned
+  side makes exact-match ground truth inherently approximate.
+- **Chat groundedness:** 1.00 on both native pairs — every citation used
+  in every answer resolves to a chunk that was actually retrieved.
+- **Chat keyword recall:** ~0.83 on `pair_A`, ~0.58 on `pair_B`, with the
+  real LLM backend producing noticeably more complete answers than the
+  extractive fallback (which only pastes retrieved chunks rather than
+  synthesizing them).
+
+## What's next
+
+Concrete, scoped extensions, roughly in priority order:
+1. Post-OCR line-stitching for the scanned adapter, to merge adjacent
+   low-confidence line fragments before alignment — the single biggest
+   lever on the scanned-pair delta score.
+2. Replace greedy alignment with a proper assignment solve
+   (`scipy.optimize.linear_sum_assignment`) over the fuzzy-candidate score
+   matrix, for globally optimal (not just locally greedy) matching.
+3. Hybrid retrieval: keep TF-IDF for exact tags/numbers, add embedding
+   similarity for paraphrase-style questions that don't share literal
+   tokens with the source text.
+4. A full DWG adapter (DWG -> DXF via the ODA File Converter, then an
+   `ezdxf` entity walk) — the interface is already in place.
+5. Delta markup: render bounding boxes for added/removed/modified entries
+   back onto a copy of the document. The bounding-box data already exists
+   in the canonical model; this is mostly rendering, not new design.
+6. Per-cell table bounding boxes, for pixel-precise table-cell citations.
+
+## Repo layout
+
+```
+src/
+  canonical/model.py     the format-agnostic Block/CanonicalDocument model
+  ingest/                base.py (interface + registry), pdf_native.py, pdf_scanned.py, dwg.py
+  delta/                 align.py, engine.py, report.py
+  chat/                  index.py (retrieval), llm.py (provider-agnostic), answer.py
+  observability/         tracing.py, logging.py
+  pipeline.py            wires ingest -> delta -> report for one request
+eval/
+  datasets/               ground-truth delta labels and chat QA sets
+  metrics.py, run_eval.py
+data/samples/             sample document pairs + provenance notes
+scripts/                  generate_samples.py, run_pipeline.py, chat.py
+tests/                    unit test suite (`make test`)
+```
+
+## Configuration
+
+Copy `.env.example` to `.env` and fill in locally — `.env` is git-ignored
+and never committed. No credentials are hardcoded anywhere in the source;
+API keys are read from the environment only (`src/chat/llm.py`).
+
+```
+GROQ_API_KEY=            # get one at https://console.groq.com/keys
+GROQ_MODEL=llama-3.3-70b-versatile
+LLM_PROVIDER=groq        # optional: force a specific provider
+```# delta-chat
+
 **Document Delta & Grounded Chat** — Applied AI Engineer take-home submission.
 
 Given two revisions of an engineering document (PID A, PID B), this ingests
@@ -21,8 +274,7 @@ make test         # unit tests (22 tests, no external deps)
 No API key is required for any of the above — see "Where is the LLM"
 below. Set `GROQ_API_KEY` (copy `.env.example` → `.env`) for fluent,
 LLM-generated chat answers (Llama 3.3 70B via Groq) instead of the
-extractive fallback. `ANTHROPIC_API_KEY` also works as a second reference
-provider — see "Where is the LLM" for how provider selection works.
+extractive fallback.
 
 ## Sample data — read this first
 
@@ -116,10 +368,6 @@ Chat has three swappable backends behind one `LLMClient` interface
   defaulting to Llama 3.3 70B (`llama-3.3-70b-versatile`). This is the
   provider configured for this submission; used automatically if
   `GROQ_API_KEY` is set (or force it with `LLM_PROVIDER=groq`).
-- `AnthropicClient` — real API call to Claude, used if `ANTHROPIC_API_KEY`
-  is set instead. Kept as a second working implementation specifically
-  to demonstrate the `LLMClient` interface is genuinely provider-agnostic
-  rather than shaped around Groq's or Anthropic's SDK.
 - `ExtractiveFallbackClient` — zero-network, zero-cost, stitches the
   top retrieved chunks into an answer. This is **not** a mocked/fake
   mode for demo purposes — it's what actually runs in `make eval` and
@@ -129,7 +377,7 @@ Chat has three swappable backends behind one `LLMClient` interface
   and every trace file record which mode produced a given answer.
 
 Provider selection (`get_default_client()` in `src/chat/llm.py`): explicit
-`LLM_PROVIDER=groq|anthropic` wins if set; otherwise whichever `*_API_KEY`
+`LLM_PROVIDER=groq| otherwise whichever `*_API_KEY`
 is present is used (Groq checked first); otherwise the extractive
 fallback. Any failure constructing a real client (bad key, unreachable
 network) falls through to the extractive client rather than crashing the
@@ -288,6 +536,6 @@ localized change, not a rewrite.
 
 ## No secrets
 
-`.env.example` has no real values. `GROQ_API_KEY` / `ANTHROPIC_API_KEY`
+`.env.example` has no real values. `GROQ_API_KEY`
 are read from the environment only (`src/chat/llm.py`); nothing is
 hardcoded or logged. `git log` has no credential-bearing commits.
