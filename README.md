@@ -534,8 +534,6 @@ and is intentionally shaped (named spans with attributes, explicit
 error status) so that swapping in a real OTel exporter later is a
 localized change, not a rewrite.
 
-## No secrets
-
-`.env.example` has no real values. `GROQ_API_KEY`
-are read from the environment only (`src/chat/llm.py`); nothing is
-hardcoded or logged. `git log` has no credential-bearing commits.
+## Author
+Murali Manohara
+https://www.linkedin.com/in/muralimanohara661/
